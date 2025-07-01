@@ -1,0 +1,3542 @@
+definitions:
+  financing-offer_internal_core.PagingMetaData:
+    properties:
+      pageNumber:
+        type: integer
+      pageSize:
+        type: integer
+      total:
+        type: integer
+      totalPages:
+        type: integer
+    type: object
+  financing-offer_internal_core_entity.AccountLoanPackageWithAccountNo:
+    properties:
+      accountNo:
+        type: string
+      basketId:
+        type: integer
+      brokerFirmBuyingFeeRate:
+        type: number
+      brokerFirmSellingFeeRate:
+        type: number
+      description:
+        type: string
+      id:
+        type: integer
+      loanProducts:
+        items:
+          $ref: '#/definitions/financing-offer_internal_core_entity.LoanProduct'
+        type: array
+      name:
+        type: string
+      transferFee:
+        type: number
+      type:
+        type: string
+    type: object
+  financing-offer_internal_core_entity.AccountLoanPackageWithSymbol:
+    properties:
+      basketId:
+        type: integer
+      brokerFirmBuyingFeeRate:
+        type: number
+      brokerFirmSellingFeeRate:
+        type: number
+      description:
+        type: string
+      id:
+        type: integer
+      loanProducts:
+        items:
+          $ref: '#/definitions/financing-offer_internal_core_entity.LoanProduct'
+        type: array
+      name:
+        type: string
+      symbol:
+        type: string
+      transferFee:
+        type: number
+      type:
+        type: string
+    type: object
+  financing-offer_internal_core_entity.AssetType:
+    enum:
+    - UNDERLYING
+    - DERIVATIVE
+    type: string
+    x-enum-varnames:
+    - AssetTypeUnderlying
+    - AssetTypeDerivative
+  financing-offer_internal_core_entity.AwaitingConfirmRequest:
+    properties:
+      investor:
+        $ref: '#/definitions/financing-offer_internal_core_entity.Investor'
+      latestUpdate:
+        $ref: '#/definitions/financing-offer_internal_core_entity.OfflineOfferUpdate'
+      loanOffer:
+        $ref: '#/definitions/financing-offer_internal_core_entity.LoanPackageOffer'
+      loanPackageIds:
+        type: string
+      loanRequest:
+        $ref: '#/definitions/financing-offer_internal_core_entity.LoanPackageRequest'
+      symbol:
+        $ref: '#/definitions/financing-offer_internal_core_entity.Symbol'
+    type: object
+  financing-offer_internal_core_entity.CancelledReason:
+    enum:
+    - UNKNOWN
+    - EXPIRED
+    - INVESTOR
+    - ADMIN
+    - ALTERNATIVE_OPTION
+    - HIGH_LOAN_RATE
+    type: string
+    x-enum-varnames:
+    - LoanPackageOfferCancelledReasonUnknown
+    - LoanPackageOfferCancelledReasonExpired
+    - LoanPackageOfferCancelledReasonInvestor
+    - LoanPackageOfferCancelledReasonAdmin
+    - LoanPackageOfferCancelledReasonAlternativeOption
+    - LoanPackageOfferCancelledReasonHighLoanRate
+  financing-offer_internal_core_entity.CombinedLoanRequest:
+    properties:
+      activatedLoanPackageIds:
+        type: string
+      adminAssignedLoanPackageIds:
+        type: string
+      cancelledReason:
+        type: string
+      investor:
+        $ref: '#/definitions/financing-offer_internal_core_entity.Investor'
+      loanContract:
+        $ref: '#/definitions/financing-offer_internal_core_entity.LoanContract'
+      loanOffer:
+        $ref: '#/definitions/financing-offer_internal_core_entity.LoanPackageOffer'
+      loanRequest:
+        $ref: '#/definitions/financing-offer_internal_core_entity.LoanPackageRequest'
+      packageCreatedTime:
+        type: string
+      status:
+        $ref: '#/definitions/financing-offer_internal_core_entity.CombinedLoanRequestStatus'
+      symbol:
+        $ref: '#/definitions/financing-offer_internal_core_entity.Symbol'
+    type: object
+  financing-offer_internal_core_entity.CombinedLoanRequestStatus:
+    enum:
+    - AWAITING_OFFER
+    - AWAITING_CONFIRM
+    - PACKAGE_CREATING
+    - PACKAGE_CREATED
+    - CANCELLED
+    type: string
+    x-enum-varnames:
+    - CombinedLoanRequestStatusAwaitingOffer
+    - CombinedLoanRequestStatusAwaitingConfirm
+    - CombinedLoanRequestStatusPackageCreating
+    - CombinedLoanRequestStatusPackageCreated
+    - CombinedLoanRequestStatusCancelled
+  financing-offer_internal_core_entity.FinancialProductLoanPackage:
+    properties:
+      allowEarlyPayment:
+        type: boolean
+      allowExtendLoanTerm:
+        type: boolean
+      brokerFirmBuyingFeeRate:
+        type: number
+      brokerFirmSellingFeeRate:
+        type: number
+      description:
+        type: string
+      id:
+        type: integer
+      initialRate:
+        type: number
+      initialRateForWithdraw:
+        type: number
+      interestRate:
+        type: number
+      liquidRate:
+        type: number
+      loanBasketId:
+        type: integer
+      loanType:
+        type: string
+      maintenanceRate:
+        type: number
+      name:
+        type: string
+      preferentialInterestRate:
+        type: number
+      preferentialPeriod:
+        type: integer
+      term:
+        type: integer
+      transferFee:
+        type: number
+    type: object
+  financing-offer_internal_core_entity.FlowType:
+    enum:
+    - "001"
+    - "002"
+    - ONLINE
+    - OFFLINE
+    type: string
+    x-enum-varnames:
+    - FLowTypeDnseOffline
+    - FlowTypeDnseOnline
+    - Online
+    - Offline
+  financing-offer_internal_core_entity.Investor:
+    properties:
+      custodyCode:
+        type: string
+      investorId:
+        type: string
+    type: object
+  financing-offer_internal_core_entity.InvestorAccount:
+    properties:
+      accountNo:
+        type: string
+      createdAt:
+        type: string
+      investorId:
+        type: string
+      marginStatus:
+        $ref: '#/definitions/financing-offer_internal_core_entity.MarginStatus'
+      updatedAt:
+        type: string
+    type: object
+  financing-offer_internal_core_entity.LoanContract:
+    properties:
+      accountNo:
+        type: string
+      createdAt:
+        type: string
+      guaranteedEndAt:
+        type: string
+      id:
+        type: integer
+      investorId:
+        type: string
+      loanId:
+        type: integer
+      loanInterestId:
+        type: integer
+      loanPackageAccountId:
+        type: integer
+      loanProductIdRef:
+        type: integer
+      symbolId:
+        type: integer
+      updatedAt:
+        type: string
+    type: object
+  financing-offer_internal_core_entity.LoanPackageOffer:
+    properties:
+      createdAt:
+        type: string
+      expiredAt:
+        type: string
+      flowType:
+        $ref: '#/definitions/financing-offer_internal_core_entity.FlowType'
+      id:
+        type: integer
+      loanPackageOfferInterests:
+        items:
+          $ref: '#/definitions/financing-offer_internal_core_entity.LoanPackageOfferInterest'
+        type: array
+      loanPackageRequest:
+        $ref: '#/definitions/financing-offer_internal_core_entity.LoanPackageRequest'
+      loanPackageRequestId:
+        type: integer
+      offeredBy:
+        type: string
+      symbol:
+        $ref: '#/definitions/financing-offer_internal_core_entity.Symbol'
+      updatedAt:
+        type: string
+    type: object
+  financing-offer_internal_core_entity.LoanPackageOfferInterest:
+    properties:
+      assetType:
+        $ref: '#/definitions/financing-offer_internal_core_entity.AssetType'
+      cancelledAt:
+        type: string
+      cancelledBy:
+        type: string
+      cancelledReason:
+        $ref: '#/definitions/financing-offer_internal_core_entity.CancelledReason'
+      contractSize:
+        type: integer
+      createdAt:
+        type: string
+      feeRate:
+        type: number
+      id:
+        type: integer
+      initialRate:
+        type: number
+      interestRate:
+        type: number
+      limitAmount:
+        type: number
+      loanContract:
+        $ref: '#/definitions/financing-offer_internal_core_entity.LoanContract'
+      loanId:
+        type: integer
+      loanPackageOffer:
+        $ref: '#/definitions/financing-offer_internal_core_entity.LoanPackageOffer'
+      loanPackageOfferId:
+        type: integer
+      loanRate:
+        type: number
+      scoreGroupInterestId:
+        type: integer
+      status:
+        $ref: '#/definitions/financing-offer_internal_core_entity.LoanPackageOfferInterestStatus'
+      submissionSheetDetailId:
+        type: integer
+      term:
+        type: integer
+      updatedAt:
+        type: string
+    type: object
+  financing-offer_internal_core_entity.LoanPackageOfferInterestStatus:
+    enum:
+    - PENDING
+    - CANCELLED
+    - SIGNED
+    - PACKAGE_CREATED
+    - PACKAGE_CREATING
+    type: string
+    x-enum-varnames:
+    - LoanPackageOfferInterestStatusPending
+    - LoanPackageOfferInterestStatusCancelled
+    - LoanPackageOfferInterestStatusSigned
+    - LoanPackageOfferInterestStatusLoanPackageCreated
+    - LoanPackageOfferInterestStatusCreatingLoanPackage
+  financing-offer_internal_core_entity.LoanPackageRequest:
+    properties:
+      accountNo:
+        type: string
+      assetType:
+        $ref: '#/definitions/financing-offer_internal_core_entity.AssetType'
+      contractSize:
+        type: integer
+      createdAt:
+        type: string
+      guaranteedDuration:
+        type: integer
+      id:
+        type: integer
+      initialRate:
+        type: number
+      investor:
+        $ref: '#/definitions/financing-offer_internal_core_entity.Investor'
+      investorId:
+        type: string
+      limitAmount:
+        type: number
+      loanRate:
+        type: number
+      status:
+        $ref: '#/definitions/financing-offer_internal_core_entity.LoanPackageRequestStatus'
+      symbolId:
+        type: integer
+      type:
+        $ref: '#/definitions/financing-offer_internal_core_entity.LoanPackageRequestType'
+      updatedAt:
+        type: string
+    type: object
+  financing-offer_internal_core_entity.LoanPackageRequestStatus:
+    enum:
+    - PENDING
+    - CONFIRMED
+    type: string
+    x-enum-varnames:
+    - LoanPackageRequestStatusPending
+    - LoanPackageRequestStatusConfirmed
+  financing-offer_internal_core_entity.LoanPackageRequestType:
+    enum:
+    - FLEXIBLE
+    - GUARANTEED
+    type: string
+    x-enum-varnames:
+    - LoanPackageRequestTypeFlexible
+    - LoanPackageRequestTypeGuaranteed
+  financing-offer_internal_core_entity.LoanProduct:
+    properties:
+      allowEarlyPayment:
+        type: boolean
+      allowExtendLoanTerm:
+        type: boolean
+      id:
+        type: string
+      initialRate:
+        type: number
+      initialRateForWithdraw:
+        type: number
+      interestRate:
+        type: number
+      liquidRate:
+        type: number
+      maintenanceRate:
+        type: number
+      name:
+        type: string
+      preferentialInterestRate:
+        type: number
+      preferentialPeriod:
+        type: integer
+      symbol:
+        type: string
+      term:
+        type: integer
+    type: object
+  financing-offer_internal_core_entity.LoanRate:
+    properties:
+      id:
+        type: integer
+      initialRate:
+        type: number
+      initialRateForWithdraw:
+        type: number
+      liquidRate:
+        type: number
+      maintenanceRate:
+        type: number
+      name:
+        type: string
+    type: object
+  financing-offer_internal_core_entity.LoanRateConfiguration:
+    properties:
+      ids:
+        items:
+          type: integer
+        type: array
+    type: object
+  financing-offer_internal_core_entity.LoanRequestSchedulerConfig:
+    properties:
+      affectedFrom:
+        type: string
+      createdAt:
+        type: string
+      id:
+        type: integer
+      maximumLoanRate:
+        type: number
+      updatedAt:
+        type: string
+    type: object
+  financing-offer_internal_core_entity.LoggedRequest:
+    properties:
+      createdAt:
+        type: string
+      id:
+        type: integer
+      investorId:
+        type: string
+      reason:
+        type: string
+      request:
+        type: string
+      symbolId:
+        type: integer
+    type: object
+  financing-offer_internal_core_entity.MarginPool:
+    properties:
+      group:
+        $ref: '#/definitions/financing-offer_internal_core_entity.MarginPoolGroup'
+      id:
+        type: integer
+      name:
+        type: string
+      poolGroupId:
+        type: integer
+      status:
+        type: string
+      type:
+        type: string
+    type: object
+  financing-offer_internal_core_entity.MarginPoolConfiguration:
+    properties:
+      ids:
+        items:
+          type: integer
+        type: array
+    type: object
+  financing-offer_internal_core_entity.MarginPoolGroup:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      source:
+        type: string
+      status:
+        type: string
+      type:
+        type: string
+    type: object
+  financing-offer_internal_core_entity.MarginStatus:
+    enum:
+    - v2
+    - v3
+    type: string
+    x-enum-varnames:
+    - MarginStatusVersion2
+    - MarginStatusVersion3
+  financing-offer_internal_core_entity.OfflineOfferUpdate:
+    properties:
+      category:
+        type: string
+      createdAt:
+        type: string
+      createdBy:
+        type: string
+      id:
+        type: integer
+      note:
+        type: string
+      offerId:
+        type: integer
+      status:
+        $ref: '#/definitions/financing-offer_internal_core_entity.OfflineOfferUpdateStatus'
+    type: object
+  financing-offer_internal_core_entity.OfflineOfferUpdateStatus:
+    enum:
+    - PROCESSING
+    - REJECTED
+    - APPROVED
+    type: string
+    x-enum-varnames:
+    - OfflineOfferUpdateStatusProcessing
+    - OfflineOfferUpdateStatusRejected
+    - OfflineOfferUpdateStatusApproved
+  financing-offer_internal_core_entity.PromotionLoanPackage:
+    properties:
+      loanProducts:
+        items:
+          $ref: '#/definitions/financing-offer_internal_core_entity.PromotionLoanProduct'
+        type: array
+    type: object
+  financing-offer_internal_core_entity.PromotionLoanProduct:
+    properties:
+      loanPackageId:
+        type: integer
+      nonRetailSymbols:
+        items:
+          type: string
+        type: array
+      retailSymbols:
+        items:
+          type: string
+        type: array
+      symbols:
+        items:
+          type: string
+        type: array
+    type: object
+  financing-offer_internal_core_entity.StockExchange:
+    properties:
+      code:
+        type: string
+      createdAt:
+        type: string
+      id:
+        type: integer
+      maxScore:
+        type: integer
+      minScore:
+        type: integer
+      scoreGroupId:
+        type: integer
+      updatedAt:
+        type: string
+    type: object
+  financing-offer_internal_core_entity.SuggestedOffer:
+    properties:
+      accountNo:
+        type: string
+      config:
+        $ref: '#/definitions/financing-offer_internal_core_entity.SuggestedOfferConfig'
+      createdAt:
+        type: string
+      id:
+        type: integer
+      symbols:
+        items:
+          type: string
+        type: array
+      updatedAt:
+        type: string
+    type: object
+  financing-offer_internal_core_entity.SuggestedOfferConfig:
+    properties:
+      createdAt:
+        type: string
+      createdBy:
+        type: string
+      id:
+        type: integer
+      lastUpdatedBy:
+        type: string
+      name:
+        type: string
+      status:
+        $ref: '#/definitions/financing-offer_internal_core_entity.SuggestedOfferConfigStatus'
+      updatedAt:
+        type: string
+      value:
+        type: number
+      valueType:
+        $ref: '#/definitions/financing-offer_internal_core_entity.ValueType'
+    type: object
+  financing-offer_internal_core_entity.SuggestedOfferConfigStatus:
+    enum:
+    - ACTIVE
+    - INACTIVE
+    type: string
+    x-enum-varnames:
+    - SuggestedOfferConfigStatusActive
+    - SuggestedOfferConfigStatusInactive
+  financing-offer_internal_core_entity.Symbol:
+    properties:
+      assetType:
+        $ref: '#/definitions/financing-offer_internal_core_entity.AssetType'
+      createdAt:
+        type: string
+      id:
+        type: integer
+      lastUpdatedBy:
+        type: string
+      scores:
+        items:
+          $ref: '#/definitions/financing-offer_internal_core_entity.SymbolScore'
+        type: array
+      status:
+        $ref: '#/definitions/financing-offer_internal_core_entity.SymbolStatus'
+      stockExchangeId:
+        type: integer
+      symbol:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  financing-offer_internal_core_entity.SymbolScore:
+    properties:
+      affectedFrom:
+        type: string
+      createdAt:
+        type: string
+      creator:
+        type: string
+      id:
+        type: integer
+      score:
+        maximum: 100
+        minimum: 0
+        type: integer
+      status:
+        allOf:
+        - $ref: '#/definitions/financing-offer_internal_core_entity.SymbolScoreStatus'
+        enum:
+        - ACTIVE
+        - INACTIVE
+      symbolId:
+        type: integer
+      type:
+        allOf:
+        - $ref: '#/definitions/financing-offer_internal_core_entity.SymbolScoreType'
+        enum:
+        - MANUAL
+        - SYSTEM
+      updatedAt:
+        type: string
+    type: object
+  financing-offer_internal_core_entity.SymbolScoreStatus:
+    enum:
+    - ACTIVE
+    - INACTIVE
+    type: string
+    x-enum-varnames:
+    - SymbolScoreStatusActive
+    - SymbolScoreStatusInactive
+  financing-offer_internal_core_entity.SymbolScoreType:
+    enum:
+    - MANUAL
+    - SYSTEM
+    type: string
+    x-enum-varnames:
+    - SymbolScoreTypeManual
+    - SymbolScoreTypeSystem
+  financing-offer_internal_core_entity.SymbolStatus:
+    enum:
+    - ACTIVE
+    - INACTIVE
+    type: string
+    x-enum-varnames:
+    - SymbolStatusActive
+    - SymbolStatusInactive
+  financing-offer_internal_core_entity.ValueType:
+    enum:
+    - INTEREST_RATE
+    - LOAN_RATE
+    type: string
+    x-enum-varnames:
+    - ValueTypeInterestRate
+    - ValueTypeLoanRate
+  financing-offer_internal_handler.BaseResponse-array_financing-offer_internal_core_entity_AccountLoanPackageWithSymbol:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/financing-offer_internal_core_entity.AccountLoanPackageWithSymbol'
+        type: array
+    type: object
+  financing-offer_internal_handler.BaseResponse-array_financing-offer_internal_core_entity_LoanPackageOffer:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/financing-offer_internal_core_entity.LoanPackageOffer'
+        type: array
+    type: object
+  financing-offer_internal_handler.BaseResponse-array_financing-offer_internal_core_entity_LoanPackageRequest:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/financing-offer_internal_core_entity.LoanPackageRequest'
+        type: array
+    type: object
+  financing-offer_internal_handler.BaseResponse-array_financing-offer_internal_core_entity_LoanRate:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/financing-offer_internal_core_entity.LoanRate'
+        type: array
+    type: object
+  financing-offer_internal_handler.BaseResponse-array_financing-offer_internal_core_entity_LoanRequestSchedulerConfig:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/financing-offer_internal_core_entity.LoanRequestSchedulerConfig'
+        type: array
+    type: object
+  financing-offer_internal_handler.BaseResponse-array_financing-offer_internal_core_entity_MarginPool:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/financing-offer_internal_core_entity.MarginPool'
+        type: array
+    type: object
+  financing-offer_internal_handler.BaseResponse-array_financing-offer_internal_core_entity_OfflineOfferUpdate:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/financing-offer_internal_core_entity.OfflineOfferUpdate'
+        type: array
+    type: object
+  financing-offer_internal_handler.BaseResponse-array_financing-offer_internal_core_entity_StockExchange:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/financing-offer_internal_core_entity.StockExchange'
+        type: array
+    type: object
+  financing-offer_internal_handler.BaseResponse-array_financing-offer_internal_core_entity_SuggestedOfferConfig:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/financing-offer_internal_core_entity.SuggestedOfferConfig'
+        type: array
+    type: object
+  financing-offer_internal_handler.BaseResponse-array_int64:
+    properties:
+      data:
+        items:
+          type: integer
+        type: array
+    type: object
+  ? financing-offer_internal_handler.BaseResponse-array_internal_core_promotion_loan_package_transport_http_PromotionPackagesWithAccountNo
+  : properties:
+      data:
+        items:
+          $ref: '#/definitions/internal_core_promotion_loan_package_transport_http.PromotionPackagesWithAccountNo'
+        type: array
+    type: object
+  financing-offer_internal_handler.BaseResponse-financing-offer_internal_core_entity_InvestorAccount:
+    properties:
+      data:
+        $ref: '#/definitions/financing-offer_internal_core_entity.InvestorAccount'
+    type: object
+  financing-offer_internal_handler.BaseResponse-financing-offer_internal_core_entity_LoanContract:
+    properties:
+      data:
+        $ref: '#/definitions/financing-offer_internal_core_entity.LoanContract'
+    type: object
+  financing-offer_internal_handler.BaseResponse-financing-offer_internal_core_entity_LoanPackageOffer:
+    properties:
+      data:
+        $ref: '#/definitions/financing-offer_internal_core_entity.LoanPackageOffer'
+    type: object
+  financing-offer_internal_handler.BaseResponse-financing-offer_internal_core_entity_LoanPackageRequest:
+    properties:
+      data:
+        $ref: '#/definitions/financing-offer_internal_core_entity.LoanPackageRequest'
+    type: object
+  financing-offer_internal_handler.BaseResponse-financing-offer_internal_core_entity_LoanRateConfiguration:
+    properties:
+      data:
+        $ref: '#/definitions/financing-offer_internal_core_entity.LoanRateConfiguration'
+    type: object
+  financing-offer_internal_handler.BaseResponse-financing-offer_internal_core_entity_LoanRequestSchedulerConfig:
+    properties:
+      data:
+        $ref: '#/definitions/financing-offer_internal_core_entity.LoanRequestSchedulerConfig'
+    type: object
+  financing-offer_internal_handler.BaseResponse-financing-offer_internal_core_entity_LoggedRequest:
+    properties:
+      data:
+        $ref: '#/definitions/financing-offer_internal_core_entity.LoggedRequest'
+    type: object
+  financing-offer_internal_handler.BaseResponse-financing-offer_internal_core_entity_MarginPoolConfiguration:
+    properties:
+      data:
+        $ref: '#/definitions/financing-offer_internal_core_entity.MarginPoolConfiguration'
+    type: object
+  financing-offer_internal_handler.BaseResponse-financing-offer_internal_core_entity_OfflineOfferUpdate:
+    properties:
+      data:
+        $ref: '#/definitions/financing-offer_internal_core_entity.OfflineOfferUpdate'
+    type: object
+  financing-offer_internal_handler.BaseResponse-financing-offer_internal_core_entity_PromotionLoanPackage:
+    properties:
+      data:
+        $ref: '#/definitions/financing-offer_internal_core_entity.PromotionLoanPackage'
+    type: object
+  financing-offer_internal_handler.BaseResponse-financing-offer_internal_core_entity_StockExchange:
+    properties:
+      data:
+        $ref: '#/definitions/financing-offer_internal_core_entity.StockExchange'
+    type: object
+  financing-offer_internal_handler.BaseResponse-financing-offer_internal_core_entity_SuggestedOffer:
+    properties:
+      data:
+        $ref: '#/definitions/financing-offer_internal_core_entity.SuggestedOffer'
+    type: object
+  financing-offer_internal_handler.BaseResponse-financing-offer_internal_core_entity_SuggestedOfferConfig:
+    properties:
+      data:
+        $ref: '#/definitions/financing-offer_internal_core_entity.SuggestedOfferConfig'
+    type: object
+  financing-offer_internal_handler.BaseResponse-financing-offer_internal_core_entity_Symbol:
+    properties:
+      data:
+        $ref: '#/definitions/financing-offer_internal_core_entity.Symbol'
+    type: object
+  financing-offer_internal_handler.BaseResponse-financing-offer_internal_core_entity_SymbolScore:
+    properties:
+      data:
+        $ref: '#/definitions/financing-offer_internal_core_entity.SymbolScore'
+    type: object
+  ? financing-offer_internal_handler.BaseResponse-financing-offer_pkg_optional_Optional-financing-offer_internal_core_entity_SuggestedOfferConfig
+  : properties:
+      data:
+        $ref: '#/definitions/financing-offer_pkg_optional.Optional-financing-offer_internal_core_entity_SuggestedOfferConfig'
+    type: object
+  financing-offer_internal_handler.BaseResponse-int:
+    properties:
+      data:
+        type: integer
+    type: object
+  financing-offer_internal_handler.BaseResponse-map_string_string:
+    properties:
+      data:
+        $ref: '#/definitions/map_string_string'
+    type: object
+  financing-offer_internal_handler.BaseResponse-string:
+    properties:
+      data:
+        type: string
+    type: object
+  financing-offer_internal_handler.ErrorResponse:
+    properties:
+      code:
+        type: integer
+      error:
+        type: string
+    type: object
+  financing-offer_internal_handler.ResponseWithPaging-array_financing-offer_internal_core_entity_AwaitingConfirmRequest:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/financing-offer_internal_core_entity.AwaitingConfirmRequest'
+        type: array
+      metaData:
+        $ref: '#/definitions/financing-offer_internal_core.PagingMetaData'
+    type: object
+  financing-offer_internal_handler.ResponseWithPaging-array_financing-offer_internal_core_entity_CombinedLoanRequest:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/financing-offer_internal_core_entity.CombinedLoanRequest'
+        type: array
+      metaData:
+        $ref: '#/definitions/financing-offer_internal_core.PagingMetaData'
+    type: object
+  financing-offer_internal_handler.ResponseWithPaging-array_financing-offer_internal_core_entity_LoanPackageOfferInterest:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/financing-offer_internal_core_entity.LoanPackageOfferInterest'
+        type: array
+      metaData:
+        $ref: '#/definitions/financing-offer_internal_core.PagingMetaData'
+    type: object
+  financing-offer_internal_handler.ResponseWithPaging-array_financing-offer_internal_core_entity_LoanPackageRequest:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/financing-offer_internal_core_entity.LoanPackageRequest'
+        type: array
+      metaData:
+        $ref: '#/definitions/financing-offer_internal_core.PagingMetaData'
+    type: object
+  financing-offer_internal_handler.ResponseWithPaging-array_financing-offer_internal_core_entity_Symbol:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/financing-offer_internal_core_entity.Symbol'
+        type: array
+      metaData:
+        $ref: '#/definitions/financing-offer_internal_core.PagingMetaData'
+    type: object
+  financing-offer_pkg_optional.Optional-financing-offer_internal_core_entity_SuggestedOfferConfig:
+    type: object
+  internal_core_investor_account_transport_http.VerifyInvestorAccountMarginStatusRequest:
+    properties:
+      investorId:
+        type: string
+    required:
+    - investorId
+    type: object
+  internal_core_loanoffer_transport_http.AdminAssignLoanIdRequest:
+    properties:
+      interestRate:
+        type: number
+      loanId:
+        type: integer
+    required:
+    - interestRate
+    - loanId
+    type: object
+  internal_core_loanoffer_transport_http.CreateOfferUpdateRequest:
+    properties:
+      category:
+        type: string
+      note:
+        type: string
+      status:
+        type: string
+    type: object
+  internal_core_loanofferinterest_http.CreateAssignedLoanOfferInterestLoanContractRequest:
+    properties:
+      loanPackage:
+        $ref: '#/definitions/financing-offer_internal_core_entity.FinancialProductLoanPackage'
+      loanPackageAccountId:
+        type: integer
+      loanProductIdRef:
+        type: integer
+    type: object
+  internal_core_loanofferinterest_http.InvestorConfirmLoanPackageOfferInterestRequest:
+    properties:
+      loanPackageOfferInterestIds:
+        items:
+          type: integer
+        type: array
+    required:
+    - loanPackageOfferInterestIds
+    type: object
+  internal_core_loanpackagerequest_transport_http.CancelLoanPackageRequestRequest:
+    properties:
+      loanIds:
+        items:
+          type: integer
+        type: array
+      offeredBy:
+        type: string
+    type: object
+  internal_core_loanpackagerequest_transport_http.ConfirmLoanPackageRequestRequest:
+    properties:
+      loanId:
+        type: integer
+      offeredBy:
+        type: string
+    type: object
+  internal_core_loanpackagerequest_transport_http.CreateLoanPackageRequestDerivativeRequest:
+    properties:
+      accountNo:
+        type: string
+      contractSize:
+        type: integer
+      initialRate:
+        type: number
+      symbolId:
+        minimum: 0
+        type: integer
+    required:
+    - accountNo
+    - contractSize
+    - initialRate
+    type: object
+  internal_core_loanpackagerequest_transport_http.CreateLoanPackageRequestUnderlyingRequest:
+    properties:
+      accountNo:
+        type: string
+      guaranteedDuration:
+        type: integer
+      limitAmount:
+        type: number
+      loanRate:
+        type: number
+      symbolId:
+        minimum: 0
+        type: integer
+      type:
+        allOf:
+        - $ref: '#/definitions/financing-offer_internal_core_entity.LoanPackageRequestType'
+        enum:
+        - FLEXIBLE
+        - GUARANTEED
+    required:
+    - accountNo
+    - limitAmount
+    - loanRate
+    - type
+    type: object
+  internal_core_loanpackagerequest_transport_http.LoggedRequestRequest:
+    properties:
+      request:
+        $ref: '#/definitions/internal_core_loanpackagerequest_transport_http.CreateLoanPackageRequestUnderlyingRequest'
+    type: object
+  internal_core_promotion_loan_package_transport_http.GetPromotionLoanPackageBySymbolResponse:
+    properties:
+      accountNos:
+        items:
+          $ref: '#/definitions/financing-offer_internal_core_entity.AccountLoanPackageWithAccountNo'
+        type: array
+      custodyCode:
+        type: string
+      symbol:
+        type: string
+    type: object
+  internal_core_promotion_loan_package_transport_http.PromotionLoanProductRequest:
+    properties:
+      loanPackageId:
+        type: integer
+      nonRetailSymbols:
+        items:
+          type: string
+        type: array
+      retailSymbols:
+        items:
+          type: string
+        type: array
+    required:
+    - loanPackageId
+    - nonRetailSymbols
+    - retailSymbols
+    type: object
+  internal_core_promotion_loan_package_transport_http.PromotionPackagesWithAccountNo:
+    properties:
+      accountNo:
+        type: string
+      symbols:
+        items:
+          $ref: '#/definitions/financing-offer_internal_core_entity.AccountLoanPackageWithSymbol'
+        type: array
+    type: object
+  internal_core_promotion_loan_package_transport_http.SetLoanRateRequest:
+    properties:
+      ids:
+        items:
+          type: integer
+        type: array
+    required:
+    - ids
+    type: object
+  internal_core_promotion_loan_package_transport_http.SetPromotionLoanPackagesRequest:
+    properties:
+      loanProducts:
+        items:
+          $ref: '#/definitions/internal_core_promotion_loan_package_transport_http.PromotionLoanProductRequest'
+        type: array
+    required:
+    - loanProducts
+    type: object
+  internal_core_scheduler_transport_http.LoanPackageSchedulerConfig:
+    properties:
+      affectedFrom:
+        type: string
+      maximumLoanRate:
+        type: number
+    required:
+    - affectedFrom
+    - maximumLoanRate
+    type: object
+  internal_core_stockexchange_transport_http.StockExchangeRequest:
+    properties:
+      code:
+        type: string
+      scoreGroupId:
+        type: integer
+    required:
+    - code
+    - scoreGroupId
+    type: object
+  internal_core_suggested_offer_config_transport_http.CreateSuggestedOfferConfigRequest:
+    properties:
+      name:
+        type: string
+      value:
+        type: number
+      valueType:
+        enum:
+        - INTEREST_RATE
+        - LOAN_RATE
+        type: string
+    required:
+    - name
+    - value
+    - valueType
+    type: object
+  internal_core_suggested_offer_config_transport_http.UpdateSuggestedOfferConfigStatusRequest:
+    properties:
+      status:
+        allOf:
+        - $ref: '#/definitions/financing-offer_internal_core_entity.SuggestedOfferConfigStatus'
+        enum:
+        - ACTIVE
+        - INACTIVE
+    required:
+    - status
+    type: object
+  internal_core_suggested_offer_transport_http.SuggestedOfferRequest:
+    properties:
+      accountNo:
+        type: string
+      configId:
+        type: integer
+      symbols:
+        items:
+          type: string
+        minItems: 1
+        type: array
+    required:
+    - accountNo
+    - configId
+    - symbols
+    type: object
+  internal_core_symbol_transport_http.SymbolRequest:
+    properties:
+      assetType:
+        allOf:
+        - $ref: '#/definitions/financing-offer_internal_core_entity.AssetType'
+        enum:
+        - UNDERLYING
+        - DERIVATIVE
+      stockExchangeId:
+        type: integer
+      symbol:
+        type: string
+    required:
+    - assetType
+    - stockExchangeId
+    - symbol
+    type: object
+  internal_core_symbol_transport_http.UpdateSymbolStatusRequest:
+    properties:
+      status:
+        allOf:
+        - $ref: '#/definitions/financing-offer_internal_core_entity.SymbolStatus'
+        enum:
+        - ACTIVE
+        - INACTIVE
+    required:
+    - status
+    type: object
+  internal_core_symbolscore_transport_http.CreateSymbolScoreRequest:
+    properties:
+      affectedFrom:
+        type: string
+      score:
+        maximum: 100
+        minimum: 0
+        type: integer
+      symbolId:
+        minimum: 0
+        type: integer
+      type:
+        allOf:
+        - $ref: '#/definitions/financing-offer_internal_core_entity.SymbolScoreType'
+        enum:
+        - MANUAL
+        - SYSTEM
+    required:
+    - affectedFrom
+    - type
+    type: object
+  map_string_string:
+    additionalProperties:
+      type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /internal/investors/sync-investor-data:
+    post:
+      consumes:
+      - application/json
+      description: Fill investor ids from requests
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-int'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Fill investor ids from requests
+      tags:
+      - investor
+      - admin
+  /internal/loan-package-offers/expire:
+    get:
+      consumes:
+      - application/json
+      description: Manual trigger expire loan offers
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-string'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Manual trigger expire loan offers
+      tags:
+      - loan package offer
+      - admin
+      - internal
+  /v1/active-suggested-offer-config:
+    get:
+      consumes:
+      - application/json
+      description: Get active suggested offer config
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-financing-offer_pkg_optional_Optional-financing-offer_internal_core_entity_SuggestedOfferConfig'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get active suggested offer config
+      tags:
+      - suggested offer config
+      - admin
+  /v1/awaiting-confirm-requests:
+    get:
+      consumes:
+      - application/json
+      description: Get all awaiting confirm request
+      parameters:
+      - description: pageNumber
+        in: query
+        name: page[number]
+        type: integer
+      - description: pageSize
+        in: query
+        name: page[size]
+        type: integer
+      - collectionFormat: csv
+        description: symbols
+        in: query
+        items:
+          type: string
+        name: symbols
+        type: array
+      - collectionFormat: csv
+        description: flowTypes
+        in: query
+        items:
+          type: string
+        name: flowTypes
+        type: array
+      - collectionFormat: csv
+        description: accountNumbers
+        in: query
+        items:
+          type: string
+        name: accountNumbers
+        type: array
+      - description: investorId
+        in: query
+        name: investorId
+        type: string
+      - collectionFormat: csv
+        description: ids
+        in: query
+        items:
+          type: integer
+        name: ids
+        type: array
+      - description: startDate
+        in: query
+        name: startDate
+        type: string
+      - description: endDate
+        in: query
+        name: endDate
+        type: string
+      - collectionFormat: csv
+        description: latestUpdateCategories
+        in: query
+        items:
+          type: string
+        name: latestUpdateCategories
+        type: array
+      - description: assetType
+        in: query
+        name: assetType
+        type: string
+      - description: custodyCode
+        in: query
+        name: custodyCode
+        type: string
+      - collectionFormat: csv
+        description: custodyCodes
+        in: query
+        items:
+          type: string
+        name: custodyCodes
+        type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ResponseWithPaging-array_financing-offer_internal_core_entity_AwaitingConfirmRequest'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get all awaiting confirm request
+      tags:
+      - awaiting confirm request
+      - admin
+  /v1/combined-requests:
+    get:
+      consumes:
+      - application/json
+      description: Get all combined loan request
+      parameters:
+      - description: pageNumber
+        in: query
+        name: page[number]
+        type: integer
+      - description: pageSize
+        in: query
+        name: page[size]
+        type: integer
+      - collectionFormat: csv
+        description: symbols
+        in: query
+        items:
+          type: string
+        name: symbols
+        type: array
+      - description: startDate
+        in: query
+        name: startDate
+        type: string
+      - description: endDate
+        in: query
+        name: endDate
+        type: string
+      - description: offerDateFrom
+        in: query
+        name: offerDateFrom
+        type: string
+      - description: offerDateTo
+        in: query
+        name: offerDateTo
+        type: string
+      - collectionFormat: csv
+        description: flowTypes
+        in: query
+        items:
+          type: string
+        name: flowTypes
+        type: array
+      - collectionFormat: csv
+        description: accountNumbers
+        in: query
+        items:
+          type: string
+        name: accountNumbers
+        type: array
+      - description: investorId
+        in: query
+        name: investorId
+        type: string
+      - description: status
+        in: query
+        name: status
+        type: string
+      - description: assignedLoanId
+        in: query
+        name: assignedLoanId
+        type: integer
+      - description: activatedLoanId
+        in: query
+        name: activatedLoanId
+        type: integer
+      - collectionFormat: csv
+        description: ids
+        in: query
+        items:
+          type: integer
+        name: ids
+        type: array
+      - description: assetType
+        in: query
+        name: assetType
+        type: string
+      - description: custodyCode
+        in: query
+        name: custodyCode
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ResponseWithPaging-array_financing-offer_internal_core_entity_CombinedLoanRequest'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get all combined loan request
+      tags:
+      - combined loan request
+      - admin
+  /v1/configurations/loan-rate:
+    get:
+      consumes:
+      - application/json
+      description: Get loan rate
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-financing-offer_internal_core_entity_LoanRateConfiguration'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get loan rate
+      tags:
+      - promotion
+      - investor
+    post:
+      consumes:
+      - application/json
+      description: Set loan rate
+      parameters:
+      - description: loan rate
+        in: body
+        name: loanRate
+        required: true
+        schema:
+          $ref: '#/definitions/internal_core_promotion_loan_package_transport_http.SetLoanRateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-financing-offer_internal_core_entity_LoanRateConfiguration'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Set loan rate
+      tags:
+      - configuration
+      - admin
+  /v1/configurations/margin-pool:
+    get:
+      consumes:
+      - application/json
+      description: Get margin pool
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-financing-offer_internal_core_entity_MarginPoolConfiguration'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get margin pool
+      tags:
+      - promotion
+      - investor
+  /v1/configurations/promotion-loan-packages:
+    post:
+      consumes:
+      - application/json
+      description: Set promotion loan packages
+      parameters:
+      - description: promotion loan packages
+        in: body
+        name: promotionLoanPackages
+        required: true
+        schema:
+          $ref: '#/definitions/internal_core_promotion_loan_package_transport_http.SetPromotionLoanPackagesRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-financing-offer_internal_core_entity_PromotionLoanPackage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Set promotion loan packages
+      tags:
+      - configuration
+      - admin
+  /v1/derivative-awaiting-confirm-requests:
+    get:
+      consumes:
+      - application/json
+      description: Get all awaiting confirm request derivative
+      parameters:
+      - description: pageNumber
+        in: query
+        name: page[number]
+        type: integer
+      - description: pageSize
+        in: query
+        name: page[size]
+        type: integer
+      - collectionFormat: csv
+        description: symbols
+        in: query
+        items:
+          type: string
+        name: symbols
+        type: array
+      - collectionFormat: csv
+        description: flowTypes
+        in: query
+        items:
+          type: string
+        name: flowTypes
+        type: array
+      - collectionFormat: csv
+        description: accountNumbers
+        in: query
+        items:
+          type: string
+        name: accountNumbers
+        type: array
+      - description: investorId
+        in: query
+        name: investorId
+        type: string
+      - collectionFormat: csv
+        description: ids
+        in: query
+        items:
+          type: integer
+        name: ids
+        type: array
+      - description: startDate
+        in: query
+        name: startDate
+        type: string
+      - description: endDate
+        in: query
+        name: endDate
+        type: string
+      - collectionFormat: csv
+        description: latestUpdateCategories
+        in: query
+        items:
+          type: string
+        name: latestUpdateCategories
+        type: array
+      - description: assetType
+        in: query
+        name: assetType
+        type: string
+      - description: custodyCode
+        in: query
+        name: custodyCode
+        type: string
+      - collectionFormat: csv
+        description: custodyCodes
+        in: query
+        items:
+          type: string
+        name: custodyCodes
+        type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ResponseWithPaging-array_financing-offer_internal_core_entity_AwaitingConfirmRequest'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get all awaiting confirm request derivative
+      tags:
+      - awaiting confirm request
+      - admin
+  /v1/investor-accounts/{account-no}/margin-status:
+    put:
+      consumes:
+      - application/json
+      description: Verify and update investor_account margin status
+      parameters:
+      - description: account-no
+        in: path
+        name: accountNo
+        required: true
+        type: string
+      - description: body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/internal_core_investor_account_transport_http.VerifyInvestorAccountMarginStatusRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-financing-offer_internal_core_entity_InvestorAccount'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Verify and update investor_account margin status
+      tags:
+      - investor account margin status
+      - admin
+  /v1/loan-offer-interests:
+    get:
+      consumes:
+      - application/json
+      description: Get all loan offer interest with filter
+      parameters:
+      - description: pageNumber
+        in: query
+        name: page[number]
+        type: integer
+      - description: pageSize
+        in: query
+        name: page[size]
+        type: integer
+      - description: status
+        in: query
+        name: status
+        type: string
+      - description: sort
+        in: query
+        name: sort
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ResponseWithPaging-array_financing-offer_internal_core_entity_LoanPackageOfferInterest'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get all loan offer interest with filter
+      tags:
+      - loan package offer line
+      - admin
+  /v1/loan-offer-interests/{id}/assign-loan-contract:
+    post:
+      consumes:
+      - application/json
+      description: Create assigned loan offer interest loan contract
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/internal_core_loanofferinterest_http.CreateAssignedLoanOfferInterestLoanContractRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-financing-offer_internal_core_entity_LoanContract'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Create assigned loan offer interest loan contract
+      tags:
+      - loan package offer line
+      - admin
+  /v1/loan-offerable-symbols/{symbol-code}:
+    get:
+      consumes:
+      - application/json
+      description: Get symbol not active blacklist
+      parameters:
+      - description: symbol-code
+        in: path
+        name: symbol-code
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-financing-offer_internal_core_entity_Symbol'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get symbol not active blacklist
+      tags:
+      - symbol
+      - admin
+  /v1/loan-package-offers/{id}/assign-loan:
+    post:
+      consumes:
+      - application/json
+      description: Admin assign loan id
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/internal_core_loanoffer_transport_http.AdminAssignLoanIdRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-string'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Admin assign loan id
+      tags:
+      - loan package offer
+      - admin
+  /v1/loan-package-offers/{id}/cancel:
+    post:
+      consumes:
+      - application/json
+      description: Admin cancel loan package offer interest
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-string'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Admin cancel loan package offer interest
+      tags:
+      - loan package offer
+      - admin
+  /v1/loan-package-offers/{id}/offline-updates:
+    get:
+      consumes:
+      - application/json
+      description: Get offline offer update history
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-array_financing-offer_internal_core_entity_OfflineOfferUpdate'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get offline offer update history
+      tags:
+      - loan package offer
+      - admin
+    post:
+      consumes:
+      - application/json
+      description: Create offline offer update
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: body
+        in: body
+        name: offerUpdate
+        required: true
+        schema:
+          $ref: '#/definitions/internal_core_loanoffer_transport_http.CreateOfferUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-financing-offer_internal_core_entity_OfflineOfferUpdate'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Create offline offer update
+      tags:
+      - loan package offer
+      - admin
+  /v1/loan-package-requests:
+    get:
+      consumes:
+      - application/json
+      description: Get all loan package requests (admin)
+      parameters:
+      - description: pageSize
+        in: query
+        name: page[size]
+        type: integer
+      - description: pageNumber
+        in: query
+        name: page[number]
+        type: integer
+      - description: sort
+        in: query
+        name: sort
+        type: string
+      - collectionFormat: csv
+        description: symbols
+        in: query
+        items:
+          type: string
+        name: symbols
+        type: array
+      - collectionFormat: csv
+        description: types
+        in: query
+        items:
+          type: string
+        name: types
+        type: array
+      - description: investorId
+        in: query
+        name: investorId
+        type: string
+      - collectionFormat: csv
+        description: statuses
+        in: query
+        items:
+          type: string
+        name: statuses
+        type: array
+      - collectionFormat: csv
+        description: ids
+        in: query
+        items:
+          type: integer
+        name: ids
+        type: array
+      - description: startDate
+        in: query
+        name: startDate
+        type: string
+      - description: endDate
+        in: query
+        name: endDate
+        type: string
+      - description: limitAmountFrom
+        in: query
+        name: limitAmountFrom
+        type: integer
+      - description: limitAmountTo
+        in: query
+        name: limitAmountTo
+        type: integer
+      - collectionFormat: csv
+        description: accountNumbers
+        in: query
+        items:
+          type: string
+        name: accountNumbers
+        type: array
+      - description: assetType
+        in: query
+        name: assetType
+        type: string
+      - description: custodyCode
+        in: query
+        name: custodyCode
+        type: string
+      - collectionFormat: csv
+        description: custodyCodes
+        in: query
+        items:
+          type: string
+        name: custodyCodes
+        type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ResponseWithPaging-array_financing-offer_internal_core_entity_LoanPackageRequest'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get all loan package requests
+      tags:
+      - loan package request
+      - admin
+  /v1/loan-package-requests/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Get loan package request by id (admin)
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-financing-offer_internal_core_entity_LoanPackageRequest'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get loan package request by id
+      tags:
+      - loan package request
+      - admin
+  /v1/loan-package-requests/{id}/admin-confirm:
+    post:
+      consumes:
+      - application/json
+      description: Admin confirm user request
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/internal_core_loanpackagerequest_transport_http.ConfirmLoanPackageRequestRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-financing-offer_internal_core_entity_LoanPackageRequest'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Admin confirm user request
+      tags:
+      - loan package request
+      - admin
+  /v1/loan-package-requests/{id}/cancel:
+    post:
+      consumes:
+      - application/json
+      description: Admin cancel loan request (admin)
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/internal_core_loanpackagerequest_transport_http.CancelLoanPackageRequestRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-financing-offer_internal_core_entity_LoanPackageRequest'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Admin cancel loan request
+      tags:
+      - loan package request
+      - admin
+  /v1/loan-request-scheduler-config:
+    get:
+      consumes:
+      - application/json
+      description: Get all loan request scheduler configs
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-array_financing-offer_internal_core_entity_LoanRequestSchedulerConfig'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get all loan request scheduler configs
+      tags:
+      - loan request scheduler
+      - admin
+    post:
+      consumes:
+      - application/json
+      description: Create loan request scheduler config
+      parameters:
+      - description: request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/internal_core_scheduler_transport_http.LoanPackageSchedulerConfig'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-financing-offer_internal_core_entity_LoanRequestSchedulerConfig'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Create loan request scheduler config
+      tags:
+      - loan request scheduler
+      - admin
+  /v1/loan-request-scheduler-config/current:
+    get:
+      consumes:
+      - application/json
+      description: Get current loan request scheduler config
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-financing-offer_internal_core_entity_LoanRequestSchedulerConfig'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get current loan request scheduler config
+      tags:
+      - loan request scheduler
+      - admin
+  /v1/mo/applicable-loan-rates:
+    get:
+      consumes:
+      - application/json
+      description: Get loan rates from config
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-array_financing-offer_internal_core_entity_LoanRate'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get loan rates from config
+      tags:
+      - loan rates
+      - admin
+  /v1/mo/applicable-margin-pools:
+    get:
+      consumes:
+      - application/json
+      description: Get margin pools from config
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-array_financing-offer_internal_core_entity_MarginPool'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get margin pools from config
+      tags:
+      - margin pools
+      - admin
+  /v1/my-configurations:
+    get:
+      consumes:
+      - application/json
+      description: Get configuration
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-map_string_string'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get configuration
+      tags:
+      - configuration
+      - investor
+  /v1/my-configurations/best-loan-package-ids:
+    get:
+      consumes:
+      - application/json
+      description: Get best loan package ids
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-array_int64'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get best loan package ids
+      tags:
+      - configuration
+      - investor
+  /v1/my-configurations/loan-rate-ids:
+    get:
+      consumes:
+      - application/json
+      description: Get loan rate ids
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-array_int64'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get loan rate ids
+      tags:
+      - configuration
+      - investor
+  /v1/my-configurations/promotion-loan-packages:
+    get:
+      consumes:
+      - application/json
+      description: Get promotion loan packages
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-financing-offer_internal_core_entity_PromotionLoanPackage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get promotion loan packages
+      tags:
+      - configuration
+      - investor
+  /v1/my-derivative-requests:
+    post:
+      consumes:
+      - application/json
+      description: Investor request loan package derivative (investor)
+      parameters:
+      - description: body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/internal_core_loanpackagerequest_transport_http.CreateLoanPackageRequestDerivativeRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-financing-offer_internal_core_entity_LoanPackageRequest'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Investor request loan package derivative
+      tags:
+      - loan package request
+      - investor
+  /v1/my-loan-offer-interests/{id}/cancel:
+    post:
+      consumes:
+      - application/json
+      description: Investor cancel loan package offer interest
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-string'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Investor cancel loan package offer interest
+      tags:
+      - loan package offer line
+      - investor
+  /v1/my-loan-offer-interests/{id}/confirm:
+    post:
+      consumes:
+      - application/json
+      description: Investor confirm loan package offer interest
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-string'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Investor confirm loan package offer interest
+      tags:
+      - loan package offer line
+      - investor
+  /v1/my-loan-offer-interests/confirm:
+    post:
+      consumes:
+      - application/json
+      description: Investor confirm multiple loan package offer interest
+      parameters:
+      - description: body
+        in: body
+        name: loanPackageOfferInterestIds
+        required: true
+        schema:
+          $ref: '#/definitions/internal_core_loanofferinterest_http.InvestorConfirmLoanPackageOfferInterestRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-string'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Investor confirm multiple loan package offer interest
+      tags:
+      - loan package offer line
+      - investor
+  /v1/my-loan-package-offer:
+    get:
+      consumes:
+      - application/json
+      description: Investor find loan offers
+      parameters:
+      - description: pageNumber
+        in: query
+        name: page[number]
+        type: integer
+      - description: pageSize
+        in: query
+        name: page[size]
+        type: integer
+      - description: status
+        in: query
+        name: status
+        type: string
+      - description: symbol
+        in: query
+        name: symbol
+        type: string
+      - description: assetType
+        in: query
+        name: assetType
+        type: string
+      - description: sort
+        in: query
+        name: sort
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-array_financing-offer_internal_core_entity_LoanPackageOffer'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Investor find loan offers
+      tags:
+      - loan package offer
+      - investor
+  /v1/my-loan-package-offer/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Investor get loan package offer by id
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-financing-offer_internal_core_entity_LoanPackageOffer'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Investor get loan package offer by id
+      tags:
+      - loan package offer
+      - investor
+  /v1/my-loan-package-offer/{id}/cancel:
+    post:
+      consumes:
+      - application/json
+      description: Investor cancel loan package offer
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-string'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Investor cancel loan package offer
+      tags:
+      - loan package offer
+      - investor
+  /v1/my-loan-package-request:
+    get:
+      consumes:
+      - application/json
+      description: Get all loan package requests (investor)
+      parameters:
+      - description: pageSize
+        in: query
+        name: page[size]
+        type: integer
+      - description: pageNumber
+        in: query
+        name: page[number]
+        type: integer
+      - collectionFormat: csv
+        description: symbols
+        in: query
+        items:
+          type: string
+        name: symbols
+        type: array
+      - collectionFormat: csv
+        description: types
+        in: query
+        items:
+          type: string
+        name: types
+        type: array
+      - collectionFormat: csv
+        description: statuses
+        in: query
+        items:
+          type: string
+        name: statuses
+        type: array
+      - collectionFormat: csv
+        description: ids
+        in: query
+        items:
+          type: integer
+        name: ids
+        type: array
+      - description: startDate
+        in: query
+        name: startDate
+        type: string
+      - description: endDate
+        in: query
+        name: endDate
+        type: string
+      - description: limitAmountFrom
+        in: query
+        name: limitAmountFrom
+        type: integer
+      - description: limitAmountTo
+        in: query
+        name: limitAmountTo
+        type: integer
+      - collectionFormat: csv
+        description: accountNumbers
+        in: query
+        items:
+          type: string
+        name: accountNumbers
+        type: array
+      - description: assetType
+        in: query
+        name: assetType
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-array_financing-offer_internal_core_entity_LoanPackageRequest'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get all loan package requests
+      tags:
+      - loan package request
+      - investor
+    post:
+      consumes:
+      - application/json
+      description: Investor request loan package (investor)
+      parameters:
+      - description: body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/internal_core_loanpackagerequest_transport_http.CreateLoanPackageRequestUnderlyingRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-financing-offer_internal_core_entity_LoanPackageRequest'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Investor request loan package
+      tags:
+      - loan package request
+      - investor
+  /v1/my-loan-package-request/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Get loan package request by id (investor)
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-financing-offer_internal_core_entity_LoanPackageRequest'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get loan package request by id
+      tags:
+      - loan package request
+      - investor
+  /v1/my-logged-requests:
+    post:
+      consumes:
+      - application/json
+      description: Save loan rate existed request (investor)
+      parameters:
+      - description: body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/internal_core_loanpackagerequest_transport_http.LoggedRequestRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-financing-offer_internal_core_entity_LoggedRequest'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Save loan rate existed request
+      tags:
+      - loan package request
+      - investor
+  /v1/my-symbols/{symbol}:
+    get:
+      consumes:
+      - application/json
+      description: Get symbol by symbol
+      parameters:
+      - description: symbol
+        in: path
+        name: symbol
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-financing-offer_internal_core_entity_Symbol'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get symbol by symbol
+      tags:
+      - symbol
+      - investor
+  /v1/promotion-loan-packages:
+    get:
+      consumes:
+      - application/json
+      description: Get investor promotion loan package
+      parameters:
+      - description: account no
+        in: query
+        name: accountNo
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-array_internal_core_promotion_loan_package_transport_http_PromotionPackagesWithAccountNo'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get investor promotion loan package
+      tags:
+      - promotion
+      - investor
+  /v1/promotion-loan-packages/{symbol}:
+    get:
+      consumes:
+      - application/json
+      description: Get promotion loan package by symbol
+      parameters:
+      - description: symbol
+        in: query
+        name: symbol
+        required: true
+        type: string
+      - description: custody code
+        in: query
+        name: custodyCode
+        required: true
+        type: string
+      - description: account no
+        in: query
+        name: accountNo
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_core_promotion_loan_package_transport_http.GetPromotionLoanPackageBySymbolResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get promotion loan package by symbol
+      tags:
+      - promotion
+      - investor
+  /v1/public/promotion-loan-packages:
+    get:
+      consumes:
+      - application/json
+      description: Get public promotion loan packages
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-array_financing-offer_internal_core_entity_AccountLoanPackageWithSymbol'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      summary: Get public promotion loan packages
+      tags:
+      - promotion
+      - public
+  /v1/public/promotion-loan-packages/{symbol}:
+    get:
+      consumes:
+      - application/json
+      description: Get public promotion loan package by symbol
+      parameters:
+      - description: symbol
+        in: path
+        name: symbol
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_core_entity.PromotionLoanPackage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      summary: Get public promotion loan package by symbol
+      tags:
+      - promotion
+      - public
+  /v1/stock-exchanges:
+    get:
+      consumes:
+      - application/json
+      description: Get all stock exchange
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-array_financing-offer_internal_core_entity_StockExchange'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get all stock exchange
+      tags:
+      - stock exchange
+      - admin
+    post:
+      consumes:
+      - application/json
+      description: Create stock exchange
+      parameters:
+      - description: stock exchange
+        in: body
+        name: stockExchange
+        required: true
+        schema:
+          $ref: '#/definitions/internal_core_stockexchange_transport_http.StockExchangeRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-financing-offer_internal_core_entity_StockExchange'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Create stock exchange
+      tags:
+      - stock exchange
+      - admin
+  /v1/stock-exchanges/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete stock exchange
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-string'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Delete stock exchange
+      tags:
+      - stock exchange
+      - admin
+    patch:
+      consumes:
+      - application/json
+      description: Update stock exchange
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: stock exchange
+        in: body
+        name: stockExchange
+        required: true
+        schema:
+          $ref: '#/definitions/financing-offer_internal_core_entity.StockExchange'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-financing-offer_internal_core_entity_StockExchange'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Update stock exchange
+      tags:
+      - stock exchange
+      - admin
+  /v1/suggested-offer-configs:
+    get:
+      consumes:
+      - application/json
+      description: Get all suggested offer config
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-array_financing-offer_internal_core_entity_SuggestedOfferConfig'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get all suggested offer config
+      tags:
+      - suggested offer config
+      - admin
+    post:
+      consumes:
+      - application/json
+      description: Create suggested offer config
+      parameters:
+      - description: body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/internal_core_suggested_offer_config_transport_http.CreateSuggestedOfferConfigRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-financing-offer_internal_core_entity_SuggestedOfferConfig'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Create suggested offer config
+      tags:
+      - suggested offer config
+      - admin
+  /v1/suggested-offer-configs/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Get suggested offer config by id
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-financing-offer_internal_core_entity_SuggestedOfferConfig'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get suggested offer config by id
+      tags:
+      - suggested offer config
+      - admin
+    patch:
+      consumes:
+      - application/json
+      description: Update suggested offer config
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/financing-offer_internal_core_entity.SuggestedOfferConfig'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-financing-offer_internal_core_entity_SuggestedOfferConfig'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Update suggested offer config
+      tags:
+      - suggested offer config
+      - admin
+  /v1/suggested-offer-configs/{id}/status:
+    patch:
+      consumes:
+      - application/json
+      description: Update suggested offer config status
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: status
+        in: body
+        name: status
+        required: true
+        schema:
+          $ref: '#/definitions/internal_core_suggested_offer_config_transport_http.UpdateSuggestedOfferConfigStatusRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-financing-offer_internal_core_entity_SuggestedOfferConfig'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Update suggested offer config status
+      tags:
+      - suggested offer config
+      - admin
+  /v1/suggested-offers:
+    post:
+      consumes:
+      - application/json
+      description: Create suggested offer
+      parameters:
+      - description: body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/internal_core_suggested_offer_transport_http.SuggestedOfferRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-financing-offer_internal_core_entity_SuggestedOffer'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Create suggested offer
+      tags:
+      - suggested offer
+  /v1/symbol-scores:
+    post:
+      consumes:
+      - application/json
+      description: Create symbol score
+      parameters:
+      - description: symbol score
+        in: body
+        name: symbolScore
+        required: true
+        schema:
+          $ref: '#/definitions/internal_core_symbolscore_transport_http.CreateSymbolScoreRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-financing-offer_internal_core_entity_SymbolScore'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Create symbol score
+      tags:
+      - symbol score
+      - admin
+  /v1/symbol-scores/{id}:
+    patch:
+      consumes:
+      - application/json
+      description: Update symbol score
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: symbol score
+        in: body
+        name: symbolScore
+        required: true
+        schema:
+          $ref: '#/definitions/financing-offer_internal_core_entity.SymbolScore'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-financing-offer_internal_core_entity_SymbolScore'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Update symbol score
+      tags:
+      - symbol score
+      - admin
+  /v1/symbols:
+    get:
+      consumes:
+      - application/json
+      description: Get all symbols
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ResponseWithPaging-array_financing-offer_internal_core_entity_Symbol'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get all symbols
+      tags:
+      - symbol
+      - admin
+    post:
+      consumes:
+      - application/json
+      description: Create symbol
+      parameters:
+      - description: symbol
+        in: body
+        name: symbol
+        required: true
+        schema:
+          $ref: '#/definitions/internal_core_symbol_transport_http.SymbolRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-financing-offer_internal_core_entity_Symbol'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Create symbol
+      tags:
+      - symbol
+      - admin
+  /v1/symbols/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Get symbol by id
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-financing-offer_internal_core_entity_Symbol'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get symbol by id
+      tags:
+      - symbol
+      - admin
+    patch:
+      consumes:
+      - application/json
+      description: Update symbol status
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: status
+        in: body
+        name: status
+        required: true
+        schema:
+          $ref: '#/definitions/internal_core_symbol_transport_http.UpdateSymbolStatusRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-financing-offer_internal_core_entity_Symbol'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Update symbol
+      tags:
+      - symbol
+      - admin
+  /v1/symbols/{id}/cancel-requests:
+    post:
+      consumes:
+      - application/json
+      description: Cancel all loan package request by symbol id
+      parameters:
+      - description: symbolId
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.BaseResponse-array_financing-offer_internal_core_entity_LoanPackageRequest'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/financing-offer_internal_handler.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Cancel all loan package request by symbol id
+      tags:
+      - loan package request
+      - admin
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

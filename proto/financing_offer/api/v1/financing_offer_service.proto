@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package financing_offer.api.v1;
+
+import "buf/validate/validate.proto";
+
+option go_package = "financing-offer/gen/go/financing_offer/api/v1;financing_offer_v1";
+
+service FinancingOfferService {
+    rpc CreateLoanContract(CreateLoanContractRequest) returns (CreateLoanContractResponse) {};
+}
+
+message CreateLoanContractRequest {
+    int64 loan_package_offer_interest_id = 1 [(buf.validate.field).int64.gt = 0];
+    int64 loan_package_account_id = 2 [(buf.validate.field).int64.gt = 0];
+    int64 loan_product_id_ref = 3 [(buf.validate.field).int64.gt = 0];
+    int64 loan_package_id_ref = 4 [(buf.validate.field).int64.gt = 0];
+}
+
+message CreateLoanContractResponse {
+    int64 loan_contract_id = 1;
+}

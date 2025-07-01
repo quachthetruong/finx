@@ -1,0 +1,92 @@
+env: local
+httpPort: 4444
+db:
+  user: encapital
+  password: Encap@1234
+  host: localhost
+  port: 5432
+  dbName: finoffer
+  enableSsl: false
+  autoMigrate: true
+
+kafka:
+  host: localhost:9093
+  autoCreateTopic: true
+  retry: 5
+  notificationTopic: dnse.financing_offer_notification
+
+modelGeneration:
+  path: ./internal/database/dbmodels
+  ignoredTables:
+    - schema_migrations
+  immutableColumns:
+    - CreatedAtColumn
+    - UpdatedAtColumn
+
+mattermost:
+  webhookUrl: https://teams.entrade.com.vn/hooks/tza7b63dubbomgobhzd1md7uxa
+
+loanRequest:
+  expireDays: 7
+  guaranteeFeeRate: 0.01
+  maxGuaranteedDuration: 100
+  minimumAppVersion: 2.62.1
+  minimumAppVersionDerivative: 2.62.1
+  declinedRequestDisplayPeriod: 3
+
+cron:
+  expireLoanOffers: "0 0 * * *"
+  declineLoanRequests: "30 11,15 * * *"
+
+features:
+  loanRequest:
+    enable: true
+    investorIds: 1000001855,0001000115
+
+financialProduct:
+  token: eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOlsiYXVkaWVuY2UiXSwic3ViIjoiYWRtaW4iLCJjdXN0b2R5Q29kZSI6ImFkbWluIiwicm9sZXMiOlsiaW52ZXN0b3IiLCJhZG1pbiJdLCJjdXN0b21lckVtYWlsIjoiYWRtaW5AZW5jYXBpdGFsLmNvbSIsImN1c3RvbWVySWQiOiIwMDAwMDAwMDAxIiwiaXNzIjoiRE5TRSIsImZ1bGxOYW1lIjoiQWRtaW4iLCJleHAiOjEwMjQ1MTY2MDczLCJjdXN0b21lck1vYmlsZSI6IjAwMDAwMDAwMDEiLCJpYXQiOjE2MDUxNjYwNzN9.bHJrKZZbQ13OpY7uPcv6xiboAndG3TfoyFRLmwaglkni07qQeZV9qg1Tjx7ftBuBCruvQzXzbYzLLM8Nf4lFVw-jE1hVG8JcTGvRYeVNqSfosJMvCjpWLihjXxT_j8iLEkA2IfbSbjUzfeFlMsgQN8o5dlr5jUbX2ly8L4wdWpI
+  url: https://services-uat.entrade.com.vn/dnse-financial-product
+
+moService:
+  token: eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOlsiYXVkaWVuY2UiXSwic3ViIjoiYWRtaW4iLCJjdXN0b2R5Q29kZSI6ImFkbWluIiwicm9sZXMiOlsiaW52ZXN0b3IiLCJhZG1pbiJdLCJjdXN0b21lckVtYWlsIjoiYWRtaW5AZW5jYXBpdGFsLmNvbSIsImN1c3RvbWVySWQiOiIwMDAwMDAwMDAxIiwiaXNzIjoiRE5TRSIsImZ1bGxOYW1lIjoiQWRtaW4iLCJleHAiOjEwMjQ1MTY2MDczLCJjdXN0b21lck1vYmlsZSI6IjAwMDAwMDAwMDEiLCJpYXQiOjE2MDUxNjYwNzN9.bHJrKZZbQ13OpY7uPcv6xiboAndG3TfoyFRLmwaglkni07qQeZV9qg1Tjx7ftBuBCruvQzXzbYzLLM8Nf4lFVw-jE1hVG8JcTGvRYeVNqSfosJMvCjpWLihjXxT_j8iLEkA2IfbSbjUzfeFlMsgQN8o5dlr5jUbX2ly8L4wdWpI
+  url: https://services-uat.entrade.com.vn/dnse-mo-service
+
+financingApi:
+  token: eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOlsiYXVkaWVuY2UiXSwic3ViIjoiYWRtaW4iLCJjdXN0b2R5Q29kZSI6ImFkbWluIiwicm9sZXMiOlsiaW52ZXN0b3IiLCJhZG1pbiJdLCJjdXN0b21lckVtYWlsIjoiYWRtaW5AZW5jYXBpdGFsLmNvbSIsImN1c3RvbWVySWQiOiIwMDAwMDAwMDAxIiwiaXNzIjoiRE5TRSIsImZ1bGxOYW1lIjoiQWRtaW4iLCJleHAiOjEwMjQ1MTY2MDczLCJjdXN0b21lck1vYmlsZSI6IjAwMDAwMDAwMDEiLCJpYXQiOjE2MDUxNjYwNzN9.bHJrKZZbQ13OpY7uPcv6xiboAndG3TfoyFRLmwaglkni07qQeZV9qg1Tjx7ftBuBCruvQzXzbYzLLM8Nf4lFVw-jE1hVG8JcTGvRYeVNqSfosJMvCjpWLihjXxT_j8iLEkA2IfbSbjUzfeFlMsgQN8o5dlr5jUbX2ly8L4wdWpI
+  url: https://services-uat.entrade.com.vn/financing-api
+
+orderService:
+  token: eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOlsiYXVkaWVuY2UiXSwic3ViIjoiYWRtaW4iLCJjdXN0b2R5Q29kZSI6ImFkbWluIiwicm9sZXMiOlsiaW52ZXN0b3IiLCJhZG1pbiJdLCJjdXN0b21lckVtYWlsIjoiYWRtaW5AZW5jYXBpdGFsLmNvbSIsImN1c3RvbWVySWQiOiIwMDAwMDAwMDAxIiwiaXNzIjoiRE5TRSIsImZ1bGxOYW1lIjoiQWRtaW4iLCJleHAiOjEwMjQ1MTY2MDczLCJjdXN0b21lck1vYmlsZSI6IjAwMDAwMDAwMDEiLCJpYXQiOjE2MDUxNjYwNzN9.bHJrKZZbQ13OpY7uPcv6xiboAndG3TfoyFRLmwaglkni07qQeZV9qg1Tjx7ftBuBCruvQzXzbYzLLM8Nf4lFVw-jE1hVG8JcTGvRYeVNqSfosJMvCjpWLihjXxT_j8iLEkA2IfbSbjUzfeFlMsgQN8o5dlr5jUbX2ly8L4wdWpI
+  url: https://services-uat.entrade.com.vn/dnse-order-service
+
+bestPromotions:
+  loanPackageIds:
+    - 4915
+
+loanRates:
+  ids:
+    - 7332
+    - 7071
+    - 7107
+    - 7331
+    - 7111
+    - 7067
+    - 5762
+    - 5763
+
+marginPools:
+  ids:
+    - 1004
+    - 1005
+
+temporal:
+  host: localhost:7233
+  namespace: default
+
+jwt:
+  publicKey: MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDGAoNxEV4HWvuymg/seZUjUb/54WgADhMv8ZDBcf95YX6vDK61TAfExD6qhcsFVOiIsPA3ZEOeiANS6f+YIo8NiGuxplozeLqs1NeYj7R8nsfjrsWJAYAp0f964QeC9HXJZ7PleaxA2ri+AsHXuqsawwbhhR3/YQ8OYF+kj03YLwIDAQAB
+
+flexOpenApi:
+  url: http://172.16.10.179/RestAPI
+  username: dnse
+  password: 123d

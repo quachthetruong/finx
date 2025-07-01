@@ -1,0 +1,164 @@
+package test
+
+import (
+	http2 "net/http"
+	"strconv"
+	"testing"
+
+	"github.com/gin-gonic/gin"
+	"github.com/samber/do"
+	"github.com/stretchr/testify/assert"
+
+	"financing-offer/internal/core/stockexchange/transport/http"
+	"financing-offer/internal/database/dbmodels/finoffer/public/model"
+	"financing-offer/pkg/dbtest"
+	"financing-offer/pkg/gintest"
+	"financing-offer/test/mock"
+	"financing-offer/test/testhelper"
+)
+
+func TestStockExchange(t *testing.T) {
+	t.Parallel()
+
+	db, tearDownDb, truncateData := dbtest.NewDb(t)
+	defer tearDownDb()
+
+	injector := testhelper.NewInjector(testhelper.WithDb(db))
+	stockExchangeHandler := do.MustInvoke[*http.StockExchangeHandler](injector)
+
+	t.Run(
+		"create stock exchange success", func(t *testing.T) {
+			defer truncateData()
+			ginCtx, _, recorder := gintest.GetTestContext()
+			mock.SeedScoreGroup(
+				t, db, model.ScoreGroup{
+					Code:     "A",
+					MinScore: 50,
+					MaxScore: 100,
+				},
+			)
+			ginCtx.Request = gintest.MustMakeRequest(
+				"POST", "/api/v1/stock-exchanges", http.StockExchangeRequest{
+					Code:         "HOSE",
+					ScoreGroupId: 1,
+				},
+			)
+			stockExchangeHandler.Create(ginCtx)
+			result := recorder.Result()
+			defer assert.Nil(t, result.Body.Close())
+			body := gintest.ExtractBody(result.Body)
+			assert.Equal(t, "HOSE", testhelper.GetString(body, "data", "code"))
+		},
+	)
+
+	t.Run(
+		"get all stock exchanges success", func(t *testing.T) {
+			defer truncateData()
+			ginCtx, _, recorder := gintest.GetTestContext()
+			group1 := mock.SeedScoreGroup(
+				t, db, model.ScoreGroup{
+					Code:     "A",
+					MinScore: 1,
+					MaxScore: 20,
+				},
+			)
+			group2 := mock.SeedScoreGroup(
+				t, db, model.ScoreGroup{
+					Code:     "A",
+					MinScore: 1,
+					MaxScore: 20,
+				},
+			)
+			mock.SeedStockExchange(
+				t, db, model.StockExchange{
+					Code:         "HNX",
+					ScoreGroupID: &group1.ID,
+				},
+			)
+			mock.SeedStockExchange(
+				t, db, model.StockExchange{
+					Code:         "HF",
+					ScoreGroupID: &group2.ID,
+				},
+			)
+			ginCtx.Request = gintest.MustMakeRequest("GET", "/api/v1/stock-exchanges", nil)
+			stockExchangeHandler.GetAll(ginCtx)
+			result := recorder.Result()
+			defer assert.Nil(t, result.Body.Close())
+			body := gintest.ExtractBody(result.Body)
+			assert.Equal(t, 2, testhelper.GetArrayLength(body, "data"))
+			assert.Equal(t, "HNX", testhelper.GetString(body, "data", "[0]", "code"))
+		},
+	)
+
+	t.Run(
+		"update stock exchange success", func(t *testing.T) {
+			defer truncateData()
+			group := mock.SeedScoreGroup(
+				t, db, model.ScoreGroup{
+					Code:     "A",
+					MinScore: 50,
+					MaxScore: 100,
+				},
+			)
+			se := mock.SeedStockExchange(
+				t, db, model.StockExchange{
+					Code:         "HOSE",
+					ScoreGroupID: &group.ID,
+				},
+			)
+			ginCtx, _, recorder := gintest.GetTestContext()
+			ginCtx.Request = gintest.MustMakeRequest(
+				"PUT", "", http.StockExchangeRequest{
+					Code:         "HOSE",
+					ScoreGroupId: 1,
+				},
+			)
+			ginCtx.Params = gin.Params{{
+				Key:   "id",
+				Value: strconv.FormatInt(se.ID, 10),
+			}}
+
+			stockExchangeHandler.Update(ginCtx)
+			result := recorder.Result()
+			defer assert.Nil(t, result.Body.Close())
+
+			body := gintest.ExtractBody(result.Body)
+			assert.Equal(t, "HOSE", testhelper.GetString(body, "data", "code"))
+			assert.Equal(t, int64(1), testhelper.GetInt(body, "data", "scoreGroupId"))
+		},
+	)
+
+	t.Run(
+		"delete stock exchange success", func(t *testing.T) {
+			defer truncateData()
+			group := mock.SeedScoreGroup(
+				t, db, model.ScoreGroup{
+					Code:     "A",
+					MinScore: 50,
+					MaxScore: 100,
+				},
+			)
+			se := mock.SeedStockExchange(
+				t, db, model.StockExchange{
+					Code:         "HOSE",
+					ScoreGroupID: &group.ID,
+				},
+			)
+			ginCtx, _, recorder := gintest.GetTestContext()
+			ginCtx.Request = gintest.MustMakeRequest(
+				"DELETE", "", nil,
+			)
+			ginCtx.Params = gin.Params{{
+				Key:   "id",
+				Value: strconv.FormatInt(se.ID, 10),
+			}}
+
+			stockExchangeHandler.Delete(ginCtx)
+			result := recorder.Result()
+			defer assert.Nil(t, result.Body.Close())
+
+			assert.Equal(t, http2.StatusNoContent, result.StatusCode)
+		},
+	)
+}

@@ -1,0 +1,1 @@
+drop table loan_request_scheduler_config;

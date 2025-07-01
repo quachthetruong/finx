@@ -1,0 +1,1 @@
+drop table offline_offer_update;

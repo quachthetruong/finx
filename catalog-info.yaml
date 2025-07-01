@@ -1,0 +1,29 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: financing-offer
+  description: Financing offer service
+  annotations:
+    sonarqube.org/project-key: "enCapital_financing-offer"
+spec:
+  system: financing-offer
+  type: service
+  lifecycle: production
+  owner: g2-egg-team
+  providesApis:
+    - financing-offer-api
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: financing-offer-api
+  description: |
+    Financing offer API
+spec:
+  type: openapi
+  lifecycle: production
+  owner: g2-egg-team
+  system: financing-offer
+  definition:
+    $text: ./pkg/docs/swagger.yaml

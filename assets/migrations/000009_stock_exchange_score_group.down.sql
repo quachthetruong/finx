@@ -1,0 +1,1 @@
+ALTER TABLE stock_exchange DROP COLUMN score_group_id;

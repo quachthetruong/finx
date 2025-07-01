@@ -1,0 +1,1 @@
+drop table scheduler_job;

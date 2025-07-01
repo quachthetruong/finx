@@ -1,0 +1,1 @@
+drop view latest_offer_update;

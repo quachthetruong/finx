@@ -1,0 +1,1 @@
+select audit.audit_table('financial_configuration');

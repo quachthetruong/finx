@@ -1,0 +1,26 @@
+version: "3.8"
+
+volumes:
+  postgres_data: { }
+
+services:
+  postgres:
+    image: docker.io/bitnami/postgresql:14
+    ports:
+      - "5432:5432"
+    volumes:
+      - 'postgres_data:/bitnami/postgresql'
+    environment:
+      - POSTGRESQL_USERNAME=encapital
+      - POSTGRESQL_DATABASE=finoffer
+      - POSTGRESQL_PASSWORD=Encap@1234
+
+  kafka:
+    image: moeenz/docker-kafka-kraft:latest
+    restart: always
+    ports:
+      - "9093:9093"
+    environment:
+      - KRAFT_CONTAINER_HOST_NAME=kafka
+      - KRAFT_PARTITIONS_PER_TOPIC=1
+      - KRAFT_CREATE_TOPICS=dnse.financing_offer_notification
